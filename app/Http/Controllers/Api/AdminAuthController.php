@@ -9,60 +9,72 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AdminAuthController extends Controller
 {
+    /**
+     * STEP 1: LOGIN (EMAIL + PASSWORD + reCAPTCHA)
+     */
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email'           => 'required|email',
+            'password'        => 'required',
             'recaptcha_token' => 'required',
         ]);
 
-        // 1️⃣ Verify reCAPTCHA
+        // 🔐 Verify reCAPTCHA
         $verify = Http::asForm()->post(
             'https://www.google.com/recaptcha/api/siteverify',
             [
-                'secret' => config('services.recaptcha.secret'),
+                'secret'   => config('services.recaptcha.secret'),
                 'response' => $request->recaptcha_token,
             ]
         );
 
         if (!($verify['success'] ?? false)) {
-            return response()->json(['message' => 'reCAPTCHA invalid'], 422);
+            return response()->json(['message' => 'reCAPTCHA tidak valid'], 422);
         }
 
-        // 2️⃣ Login credential
+        // 🔑 Check credential
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Login gagal'], 401);
+            return response()->json(['message' => 'Email atau password salah'], 401);
         }
 
         $user = Auth::user();
 
-        // 3️⃣ Role check
+        // 🚫 Admin only
         if ($user->role !== 'admin') {
+            Auth::logout();
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        // 4️⃣ Generate OTP
-        $otp = random_int(100000, 999999);
+        // ⛔ Rate limit OTP
+        if (RateLimiter::tooManyAttempts("admin-otp:{$user->id}", 3)) {
+            return response()->json([
+                'message' => 'Terlalu banyak permintaan OTP, coba lagi nanti'
+            ], 429);
+        }
 
-        Cache::put(
-            'admin_otp_' . $user->id,
-            $otp,
-            now()->addMinutes(5)
-        );
+        RateLimiter::hit("admin-otp:{$user->id}", 300);
 
-        // 5️⃣ Dispatch OTP Queue
+        // 🔢 Generate OTP
+        $otp = (string) random_int(100000, 999999);
+
+        Cache::put("admin_otp_{$user->id}", $otp, now()->addMinutes(5));
+
         SendAdminOtpJob::dispatch($user, $otp);
 
         return response()->json([
-            'message' => 'OTP dikirim',
+            'message' => 'OTP dikirim ke email',
             'user_id' => $user->id,
         ]);
     }
 
+    /**
+     * STEP 2: VERIFY OTP → RETURN TOKEN
+     */
     public function verifyOtp(Request $request)
     {
         $request->validate([
@@ -70,74 +82,86 @@ class AdminAuthController extends Controller
             'otp' => 'required|digits:6',
         ]);
 
-        // 🔍 Ambil OTP dari cache
-        $cachedOtp = Cache::get('admin_otp_' . $request->user_id);
+        $cachedOtp = Cache::get("admin_otp_{$request->user_id}");
 
-        if (!$cachedOtp || $cachedOtp != $request->otp) {
-            return response()->json(['message' => 'OTP salah atau kadaluarsa'], 422);
+        if (!$cachedOtp || $cachedOtp !== $request->otp) {
+            return response()->json(['message' => 'OTP salah'], 422);
         }
 
-        Cache::forget('admin_otp_' . $request->user_id);
+        Cache::forget("admin_otp_{$request->user_id}");
 
         $user = User::findOrFail($request->user_id);
 
-        // 🔐 Buat token Sanctum
-        $token = $user->createToken('admin-token')->plainTextToken;
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
-        // 🔐 Set httpOnly cookie
-        $cookie = cookie(
-            'admin_token',
-            $token,
-            60 * 24,
-            '/',
-            'localhost',   // 🔴 WAJIB
-            false,         // 🔴 http (local)
-            true,          // httpOnly
-            false,
-            'Lax'
-        );
+        // 🔑 INI YANG KEMARIN HILANG
+        $token = $user->createToken('admin_token')->plainTextToken;
 
-
-        // ✅ RESPONSE FINAL
         return response()->json([
             'message' => 'Login berhasil',
+            'token' => $token,
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
+                'email' => $user->email,
                 'role' => $user->role,
             ],
-        ])->withCookie($cookie);
+        ]);
     }
 
+    /**
+     * RESEND OTP
+     */
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        if (RateLimiter::tooManyAttempts("resend-otp:{$request->user_id}", 1)) {
+            return response()->json([
+                'message' => 'Tunggu 60 detik sebelum kirim ulang OTP'
+            ], 429);
+        }
+
+        RateLimiter::hit("resend-otp:{$request->user_id}", 60);
+
+        $user = User::findOrFail($request->user_id);
+
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $otp = (string) random_int(100000, 999999);
+
+        Cache::put("admin_otp_{$user->id}", $otp, now()->addMinutes(5));
+
+        SendAdminOtpJob::dispatch($user, $otp);
+
+        return response()->json([
+            'message' => 'OTP berhasil dikirim ulang',
+        ]);
+    }
+
+    /**
+     * GET ADMIN PROFILE (TOKEN BASED)
+     */
     public function me(Request $request)
     {
         return response()->json($request->user());
     }
 
+    /**
+     * LOGOUT (REVOKE TOKEN)
+     */
     public function logout(Request $request)
     {
-        $user = $request->user();
-
-        if ($user) {
-            // 🔥 HAPUS SEMUA TOKEN USER (AMAN UNTUK COOKIE AUTH)
-            $user->tokens()->delete();
-        }
-
-        // 🔥 HAPUS COOKIE admin_token
-        $cookie = cookie(
-            'admin_token',
-            null,
-            -1,
-            '/',
-            'localhost',
-            false,
-            true,
-            false,
-            'Lax'
-        );
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'message' => 'Logout berhasil',
-        ])->withCookie($cookie);
+        ]);
     }
 }

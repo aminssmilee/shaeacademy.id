@@ -18,7 +18,7 @@ class AdminClassController extends Controller
         $classes = ClassItem::latest()->get();
 
         return response()->json([
-            'data' => $classes->map(fn ($item) => $this->formatClass($item))
+            'data' => $classes->map(fn($item) => $this->formatClass($item))
         ]);
     }
 
@@ -132,16 +132,29 @@ class AdminClassController extends Controller
         $query = ClassItem::where('category', $category)
             ->where('status', 'published');
 
+        // 🔎 FILTER TOPIC
         if ($request->filled('topic') && $request->topic !== 'all') {
             $query->where('topic', $request->topic);
         }
 
-        $classes = $query->latest()->get();
+        // 🔍 SEARCH (judul)
+        if ($request->filled('search')) {
+            $query->where('title', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $classes = $query->latest()->paginate(6);
 
         return response()->json([
-            'data' => $classes->map(fn ($item) => $this->formatClass($item))
+            'data' => collect($classes->items())->map(fn($item) => $this->formatClass($item)),
+            'current_page' => $classes->currentPage(),
+            'last_page' => $classes->lastPage(),
+            'per_page' => $classes->perPage(),
+            'total' => $classes->total(),
         ]);
     }
+
+
+
 
     /* =====================================================
      | FORMAT RESPONSE (SINGLE SOURCE OF TRUTH)

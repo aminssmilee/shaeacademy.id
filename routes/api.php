@@ -3,19 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\Api\AdminClassController;
+use App\Http\Controllers\Api\AdminBannerController;
 
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES
 |--------------------------------------------------------------------------
 */
+
 Route::prefix('admin')->group(function () {
 
     // 🔐 AUTH
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::post('/verify-otp', [AdminAuthController::class, 'verifyOtp']);
+    Route::post('/resend-otp', [AdminAuthController::class, 'resendOtp']);
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:sanctum', 'admin')->group(function () {
 
         // 👤 SESSION
         Route::get('/me', [AdminAuthController::class, 'me']);
@@ -23,6 +26,10 @@ Route::prefix('admin')->group(function () {
 
         // 📦 CRUD KELAS (ADMIN)
         Route::apiResource('classes', AdminClassController::class)
+            ->except(['create', 'edit']);
+
+        // 📢 CRUD BANNER (ADMIN)
+        Route::apiResource('banners', AdminBannerController::class)
             ->except(['create', 'edit']);
     });
 });
@@ -32,7 +39,12 @@ Route::prefix('admin')->group(function () {
 | PUBLIC ROUTES (TANPA LOGIN)
 |--------------------------------------------------------------------------
 */
-Route::get('/classes/{category}', [
+Route::get('/classes/category/{category}', [
     AdminClassController::class,
     'publicByCategory'
+]);
+
+Route::get('/banners/{category}', [
+    AdminBannerController::class,
+    'byCategory'
 ]);
