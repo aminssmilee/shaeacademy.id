@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClassItem;
@@ -119,42 +119,57 @@ class AdminClassController extends Controller
      ===================================================== */
     public function publicByCategory(Request $request, $category)
     {
+        /* ================= VALIDASI CATEGORY ================= */
         if (!in_array($category, [
             'shae-muslim',
             'shae-life',
-            'shae-professional'
+            'shae-professional',
         ])) {
             return response()->json([
                 'message' => 'Kategori tidak valid'
             ], 404);
         }
 
-        $query = ClassItem::where('category', $category)
+        /* ================= BASE QUERY ================= */
+        $query = ClassItem::query()
+            ->where('category', $category)
             ->where('status', 'published');
 
-        // 🔎 FILTER TOPIC
+        /* ================= FILTER TOPIC ================= */
         if ($request->filled('topic') && $request->topic !== 'all') {
             $query->where('topic', $request->topic);
         }
 
-        // 🔍 SEARCH (judul)
+        /* ================= SEARCH ================= */
         if ($request->filled('search')) {
             $query->where('title', 'LIKE', '%' . $request->search . '%');
         }
 
-        $classes = $query->latest()->paginate(6);
+        /* ================= SORT ================= */
+        if ($request->filled('sort')) {
+            match ($request->sort) {
+                'price_asc'  => $query->orderBy('price', 'asc'),
+                'price_desc' => $query->orderBy('price', 'desc'),
+                default      => $query->latest(),
+            };
+        } else {
+            // default sort
+            $query->latest();
+        }
 
+        /* ================= PAGINATION ================= */
+        $classes = $query->paginate(9);
+
+        /* ================= RESPONSE ================= */
         return response()->json([
-            'data' => collect($classes->items())->map(fn($item) => $this->formatClass($item)),
+            'data' => collect($classes->items())
+                ->map(fn($item) => $this->formatClass($item)),
             'current_page' => $classes->currentPage(),
-            'last_page' => $classes->lastPage(),
-            'per_page' => $classes->perPage(),
-            'total' => $classes->total(),
+            'last_page'    => $classes->lastPage(),
+            'per_page'     => $classes->perPage(),
+            'total'        => $classes->total(),
         ]);
     }
-
-
-
 
     /* =====================================================
      | FORMAT RESPONSE (SINGLE SOURCE OF TRUTH)
