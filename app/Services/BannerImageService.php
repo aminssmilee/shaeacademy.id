@@ -4,36 +4,50 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-use Illuminate\Http\UploadedFile;
 
 class BannerImageService
 {
-    private ImageManager $manager;
+    private ?ImageManager $manager = null;
 
     public function __construct()
     {
-        $this->manager = new ImageManager(new Driver());
+        // Cek apakah GD + WebP tersedia
+        if (function_exists('imagewebp')) {
+            $this->manager = new ImageManager(new Driver());
+        }
     }
 
     public function storeWebp(UploadedFile $file): string
     {
-        // 👉 Read & normalize image
-        $image = $this->manager
-            ->read($file)
-            ->orient() // fix EXIF orientation
-            ->cover(3780, 1323) // FIXED RATIO banner
-            ->toWebp(80); // quality optimal
+        // ==========================
+        // FALLBACK (SERVER AMAN)
+        // ==========================
+        if (!$this->manager) {
+            return $file->store('banners', 'public');
+        }
 
-        $filename = 'banners/' . Str::uuid() . '.webp';
+        try {
+            $image = $this->manager
+                ->read($file)
+                ->orient()
+                ->cover(3780, 1323)
+                ->toWebp(80);
 
-        Storage::disk('public')->put(
-            $filename,
-            $image->toString()
-        );
+            $filename = 'banners/' . Str::uuid() . '.webp';
 
-        return $filename;
+            Storage::disk('public')->put(
+                $filename,
+                $image->toString()
+            );
+
+            return $filename;
+        } catch (\Throwable $e) {
+            // fallback jika server error
+            return $file->store('banners', 'public');
+        }
     }
 
     public function delete(?string $path): void
