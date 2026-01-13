@@ -48,7 +48,7 @@ class PublicClassController extends Controller
             default      => $query->latest(),
         };
 
-        $classes = $query->paginate(9);
+        $classes = $query->paginate(12);
 
         return response()->json([
             'data' => collect($classes->items())->map(fn ($item) => [
