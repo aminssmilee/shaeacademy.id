@@ -37,10 +37,18 @@ class AdminAuthController extends Controller
             return response()->json(['message' => 'reCAPTCHA tidak valid'], 422);
         }
 
-        // 🔑 Check credential
+        // ⛔ Rate limit login per email
+        $key = 'login_attempt:' . strtolower($request->email);
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            return response()->json(['message' => 'Terlalu banyak percobaan login, tunggu beberapa menit'], 429);
+        }
+
         if (!Auth::attempt($request->only('email', 'password'))) {
+            RateLimiter::hit($key, 60 * 5); // lock 5 menit
             return response()->json(['message' => 'Email atau password salah'], 401);
         }
+
+        RateLimiter::clear($key);
 
         $user = Auth::user();
 
@@ -64,11 +72,12 @@ class AdminAuthController extends Controller
 
         Cache::put("admin_otp_{$user->id}", $otp, now()->addMinutes(5));
 
+        // 🔔 Dispatch job kirim OTP email
         SendAdminOtpJob::dispatch($user, $otp);
 
         return response()->json([
             'message' => 'OTP dikirim ke email',
-            'user_id' => $user->id,
+            'user_id' => $user->id, // FE perlu ini untuk step verify OTP
         ]);
     }
 
@@ -79,15 +88,15 @@ class AdminAuthController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'otp' => 'required|digits:6',
+            'otp'     => 'required|digits:6',
         ]);
 
         $cachedOtp = Cache::get("admin_otp_{$request->user_id}");
-
         if (!$cachedOtp || $cachedOtp !== $request->otp) {
-            return response()->json(['message' => 'OTP salah'], 422);
+            return response()->json(['message' => 'OTP salah atau expired'], 422);
         }
 
+        // Hapus OTP setelah validasi
         Cache::forget("admin_otp_{$request->user_id}");
 
         $user = User::findOrFail($request->user_id);
@@ -96,17 +105,20 @@ class AdminAuthController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        // 🔑 INI YANG KEMARIN HILANG
+        // 🔑 Revoke semua token lama untuk keamanan
+        $user->tokens()->delete();
+
+        // Buat token baru
         $token = $user->createToken('admin_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login berhasil',
-            'token' => $token,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
+            'token'   => $token, // FE gunakan untuk Authorization Bearer
+            'user'    => [
+                'id'    => $user->id,
+                'name'  => $user->name,
                 'email' => $user->email,
-                'role' => $user->role,
+                'role'  => $user->role,
             ],
         ]);
     }
@@ -135,7 +147,6 @@ class AdminAuthController extends Controller
         }
 
         $otp = (string) random_int(100000, 999999);
-
         Cache::put("admin_otp_{$user->id}", $otp, now()->addMinutes(5));
 
         SendAdminOtpJob::dispatch($user, $otp);
@@ -150,6 +161,7 @@ class AdminAuthController extends Controller
      */
     public function me(Request $request)
     {
+        // Pastikan FE kirim token Bearer
         return response()->json($request->user());
     }
 

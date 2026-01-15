@@ -24,7 +24,9 @@ class AdminBannerController extends Controller
             ->map(fn($b) => [
                 'id'        => $b->id,
                 'category'  => $b->category,
-                'image'     => asset('storage/' . $b->image),
+                'image' => str_starts_with($b->image, 'http')
+                    ? $b->image
+                    : asset('storage/' . $b->image),
                 'order'     => $b->order,
                 'is_active' => $b->is_active,
             ]);
@@ -40,7 +42,8 @@ class AdminBannerController extends Controller
             'order'    => 'nullable|integer',
         ]);
 
-        $path = $this->imageService->storeWebp($data['image']);
+        // $path = $this->imageService->storeWebp($data['image']);
+        $path = $this->imageService->store($data['image']);
 
         $banner = Banner::create([
             'category'  => $data['category'],
@@ -65,7 +68,8 @@ class AdminBannerController extends Controller
 
         if (isset($data['image'])) {
             $this->imageService->delete($banner->image);
-            $banner->image = $this->imageService->storeWebp($data['image']);
+            // $banner->image = $this->imageService->storeWebp($data['image']);
+            $banner->image = $this->imageService->store($data['image']);
         }
 
         $banner->update(collect($data)->except('image')->toArray());
@@ -99,7 +103,9 @@ class AdminBannerController extends Controller
             ->get()
             ->map(fn($b) => [
                 'id'    => $b->id,
-                'image' => asset('storage/' . $b->image),
+                'image' => str_starts_with($b->image, 'http')
+                    ? $b->image
+                    : asset('storage/' . $b->image),
             ]);
 
         return response()->json(['data' => $banners]);
@@ -121,7 +127,10 @@ class AdminBannerController extends Controller
                 'category'  => $banner->category,
                 'order'     => $banner->order,
                 'is_active' => (bool) $banner->is_active,
-                'image'     => asset('storage/' . $banner->image),
+                // 'image'     => asset('storage/' . $banner->image),
+                'image' => str_starts_with($banner->image, 'http')
+                    ? $banner->image
+                    : asset('storage/' . $banner->image),
             ],
         ]);
     }

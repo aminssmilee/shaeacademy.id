@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\Api\Admin\AdminClassController;
 use App\Http\Controllers\Api\Admin\AdminBannerController;
+use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Public\PublicBannerController;
 use App\Http\Controllers\Api\Public\PublicClassController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,10 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth:sanctum', 'admin'])->group(function () {
         Route::get('/me', [AdminAuthController::class, 'me']);
         Route::post('/logout', [AdminAuthController::class, 'logout']);
+
+        route::get('/dashboard-stats', [AdminDashboardController::class, 'index']);
+        route::get('/chart-activity', [AdminDashboardController::class, 'chartActivity']);
+        
 
         Route::apiResource('classes', AdminClassController::class)
             ->except(['create', 'edit']);
