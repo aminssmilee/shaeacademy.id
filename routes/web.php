@@ -24,5 +24,3 @@ Route::get('/shaeprofesional', function () {
 Route::get('/{any}', function () {
     return view('app', ['category' => null]);
 })->where('any', '.*');
-
-// Admin panel
