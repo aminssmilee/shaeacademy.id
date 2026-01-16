@@ -52,17 +52,17 @@
     "src": "public/img/profesionall.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-Cd8JgD_B.css",
+    "file": "assets/app-BI4gbz3n.css",
     "src": "resources/js/app.jsx",
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-oTgDTrXB.js",
+    "file": "assets/app-CWo44hsk.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "css": [
-      "assets/app-Cd8JgD_B.css"
+      "assets/app-BI4gbz3n.css"
     ],
     "assets": [
       "assets/academy-B7Ep8dsh.png",
