@@ -22,7 +22,12 @@ export default function AdminDashboard() {
       try {
         setLoading(true)
         const token = localStorage.getItem("admin_token")
-        const res = await axios.get("http://localhost:8000/api/admin/dashboard-stats", {
+        if (!token) throw new Error("Token admin tidak ditemukan")
+
+        // gunakan env variable
+        const API_URL = import.meta.env.VITE_API_URL
+
+        const res = await axios.get(`${API_URL}/api/admin/dashboard-stats`, {
           headers: { Authorization: `Bearer ${token}` },
         })
 
@@ -38,6 +43,7 @@ export default function AdminDashboard() {
         setLoading(false)
       }
     }
+
     fetchStats()
   }, [])
 
@@ -46,16 +52,14 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6 px-4 lg:px-6">
-      {/* ------------------ Stats Cards ------------------ */}
       <SectionCards
         totalClasses={stats.totalClasses}
         totalBanners={stats.totalBanners}
       />
 
-      {/* ------------------ Chart Area ------------------ */}
       <ChartAreaInteractive chartData={stats.chartData} />
 
-      {/* ------------------ Data Table (opsional) ------------------ */}
+      {/* Uncomment kalau mau pakai DataTable */}
       {/* <DataTable
         title="Recent Items"
         columns={[
@@ -64,7 +68,7 @@ export default function AdminDashboard() {
           { header: "Type", accessor: "type" },
           { header: "Created At", accessor: "created_at" },
         ]}
-        fetchUrl="http://localhost:8000/api/admin/classes"
+        fetchUrl={`${import.meta.env.VITE_API_URL}/admin/classes`}
         authToken={localStorage.getItem("admin_token")}
       /> */}
     </div>
