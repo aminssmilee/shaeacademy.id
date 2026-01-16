@@ -1,0 +1,83 @@
+{
+  "public/banner/6.png": {
+    "file": "assets/6-sSkWBEDX.png",
+    "src": "public/banner/6.png"
+  },
+  "public/banner/7.png": {
+    "file": "assets/7-Bx2LFj-L.png",
+    "src": "public/banner/7.png"
+  },
+  "public/banner/8.png": {
+    "file": "assets/8-D-v5rNLs.png",
+    "src": "public/banner/8.png"
+  },
+  "public/benefit/b1.jpeg": {
+    "file": "assets/b1-DJKggoSW.jpeg",
+    "src": "public/benefit/b1.jpeg"
+  },
+  "public/benefit/b2.webp": {
+    "file": "assets/b2-DAjc22XU.webp",
+    "src": "public/benefit/b2.webp"
+  },
+  "public/benefit/b3.jpeg": {
+    "file": "assets/b3-CGFN7iAi.jpeg",
+    "src": "public/benefit/b3.jpeg"
+  },
+  "public/benefit/b4.jpeg": {
+    "file": "assets/b4-CAsh0-q8.jpeg",
+    "src": "public/benefit/b4.jpeg"
+  },
+  "public/benefit/br.jpeg": {
+    "file": "assets/br-CgECAJi5.jpeg",
+    "src": "public/benefit/br.jpeg"
+  },
+  "public/img/5.png": {
+    "file": "assets/5-BzsQV3QR.png",
+    "src": "public/img/5.png"
+  },
+  "public/img/academy.png": {
+    "file": "assets/academy-B7Ep8dsh.png",
+    "src": "public/img/academy.png"
+  },
+  "public/img/life.png": {
+    "file": "assets/life-Ciopnhkh.png",
+    "src": "public/img/life.png"
+  },
+  "public/img/muslim.png": {
+    "file": "assets/muslim-DZVI6UeT.png",
+    "src": "public/img/muslim.png"
+  },
+  "public/img/profesionall.png": {
+    "file": "assets/profesionall-BglFHBSV.png",
+    "src": "public/img/profesionall.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Cd8JgD_B.css",
+    "src": "resources/js/app.jsx",
+    "isEntry": true
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app-BVLZN-qS.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "css": [
+      "assets/app-Cd8JgD_B.css"
+    ],
+    "assets": [
+      "assets/academy-B7Ep8dsh.png",
+      "assets/muslim-DZVI6UeT.png",
+      "assets/life-Ciopnhkh.png",
+      "assets/profesionall-BglFHBSV.png",
+      "assets/5-BzsQV3QR.png",
+      "assets/b1-DJKggoSW.jpeg",
+      "assets/b3-CGFN7iAi.jpeg",
+      "assets/b4-CAsh0-q8.jpeg",
+      "assets/b2-DAjc22XU.webp",
+      "assets/br-CgECAJi5.jpeg",
+      "assets/6-sSkWBEDX.png",
+      "assets/7-Bx2LFj-L.png",
+      "assets/8-D-v5rNLs.png"
+    ]
+  }
+}

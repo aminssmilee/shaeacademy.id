@@ -23,7 +23,8 @@ return [
         'http://localhost:3000',
         'http://127.0.0.1:3000',
         'https://shaeacademy.vercel.app',
-        'https://shaeacademy.id'
+        'https://shaeacademy.id',
+        'http://localhost:8000',
     ],
 
     'allowed_origins_patterns' => [],

@@ -1,0 +1,15 @@
+export const SHAE_LIFE_TOPICS = [
+  { label: "All", value: "all" },
+  { label: "Bundling", value: "bundling" },
+  { label: "Hijrah", value: "hijrah" },
+  { label: "Kemuslimahan", value: "kemuslimahan" },
+  { label: "Pengembangan Diri", value: "pengembangan-diri" },
+  { label: "Akhlak", value: "akhlak" },
+  { label: "Muamalah", value: "muamalah" },
+  { label: "Pulih", value: "pulih" },
+  { label: "Pranikah", value: "pranikah" },
+  { label: "Keluarga", value: "keluarga" },
+  { label: "Parenting", value: "parenting" },
+  { label: "Keteladanan", value: "keteladanan" },
+  { label: "Lainnya", value: "lainnya" },
+]
