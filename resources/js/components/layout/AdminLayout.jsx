@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
-import api from "@/lib/api"
-
 import {
   SidebarProvider,
   Sidebar,
@@ -18,6 +16,7 @@ import {
 
 import { Home, Image, BookOpen } from "lucide-react"
 import { NavUser } from "@/components/nav-user"
+import api from "@/lib/api"
 import logo from "/public/img/academy.png"
 
 export default function AdminLayout() {
@@ -25,14 +24,8 @@ export default function AdminLayout() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  /* 🔐 AUTH GUARD */
+  /* ================= AUTH CHECK ================= */
   useEffect(() => {
-    const token = localStorage.getItem("admin_token")
-    if (!token) {
-      navigate("/admin/login")
-      return
-    }
-
     api
       .get("/api/admin/me")
       .then((res) => setUser(res.data))
@@ -41,29 +34,25 @@ export default function AdminLayout() {
         navigate("/admin/login")
       })
       .finally(() => setLoading(false))
-  }, [navigate])
+  }, [])
 
   const handleLogout = async () => {
     try {
       await api.post("/api/admin/logout")
     } catch (_) {}
-
     localStorage.removeItem("admin_token")
     navigate("/admin/login")
   }
 
   if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
-      </div>
-    )
+    return <p className="p-6">Checking session...</p>
   }
 
+  /* ================= SIDEBAR DATA ================= */
   const data = {
     user: {
-      name: user.name,
-      email: user.email,
+      name: user?.name,
+      email: user?.email,
       avatar: "/avatars/shadcn.jpg",
     },
   }
@@ -74,7 +63,7 @@ export default function AdminLayout() {
         <Sidebar className="border-r">
           <div className="flex h-full flex-col">
             <div className="flex items-center gap-3 px-6 py-4 border-b">
-              <img src={logo} alt="SHAE Logo" className="h-10 w-full object-contain" />
+              <img src={logo} className="h-10 w-full object-contain" />
             </div>
 
             <SidebarContent className="flex-1 py-5 px-2">
@@ -124,8 +113,8 @@ export default function AdminLayout() {
           </div>
         </Sidebar>
 
-        <SidebarInset className="flex-1 flex flex-col overflow-hidden">
-          <header className="flex h-14 items-center gap-4 border-b bg-white px-6">
+        <SidebarInset className="flex-1 flex flex-col">
+          <header className="flex h-14 items-center gap-4 border-b px-6">
             <SidebarTrigger className="md:hidden" />
             <h1 className="text-lg font-semibold">Admin Dashboard</h1>
           </header>
