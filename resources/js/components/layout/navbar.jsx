@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X, Home, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 // LOGO
 import shaeAcademy from "/public/img/academy.png";
@@ -31,7 +32,8 @@ const menuItems = [
 ];
 
 export default function Navbar() {
-  const pathname = window.location.pathname; // React biasa
+  const location = useLocation();
+  const pathname = location.pathname;
   const [open, setOpen] = useState(false);
 
   /* ===== LOGO DINAMIS ===== */
@@ -61,20 +63,25 @@ export default function Navbar() {
           <Menu className="h-6 w-6" />
         </button>
 
-        <a href="/" className="w-32">
+        <Link to="/" className="w-32">
           <img
             src={currentLogo.logo}
             alt={currentLogo.alt}
             className="w-full h-auto object-contain"
           />
-        </a>
+        </Link>
 
         {showLogin ? (
           <div className="flex gap-3 text-sm">
-            <a href="/" className="flex items-center gap-1">
+            <Link to="/" className="flex items-center gap-1">
               <Home className="h-4 w-4" /> Home
-            </a>
-            <a href={loginTarget} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+            </Link>
+            <a
+              href={loginTarget}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1"
+            >
               <LogIn className="h-4 w-4" /> Login
             </a>
           </div>
@@ -85,25 +92,23 @@ export default function Navbar() {
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden md:flex container mx-auto h-20 items-center justify-between px-6">
-        <a href="/" className="w-[150px]">
+        <Link to="/" className="w-[150px]">
           <img
             src={currentLogo.logo}
             alt={currentLogo.alt}
             className="w-full h-auto object-contain"
           />
-        </a>
+        </Link>
 
         <nav className="flex items-center gap-6">
           {menuItems.map((item) => {
             const isActive =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
 
             return (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className={`text-sm font-medium ${
                   isActive
                     ? "underline underline-offset-4"
@@ -111,7 +116,7 @@ export default function Navbar() {
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             );
           })}
 
@@ -150,13 +155,13 @@ export default function Navbar() {
 
         <nav className="px-4 py-6 space-y-2">
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
+              to={item.href}
               className="block px-4 py-3 rounded-lg hover:bg-gray-100"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>
