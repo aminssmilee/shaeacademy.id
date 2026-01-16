@@ -83,7 +83,7 @@ export default function CategorySection() {
               <CardFooter className="px-6 pb-6">
                 {/* Ganti Link Next.js dengan <a> biasa */}
                 <Button asChild className={`w-full text-white ${item.button}`}>
-                  <a href={`/${item.key}/`}>{item.cta}</a>
+                  <a href={`/${item.key}`}>{item.cta}</a>
                   {/* Jika pakai React Router:
                     <Link to={`/${item.key}/`}>{item.cta}</Link>
                   */}

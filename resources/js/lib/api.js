@@ -1,14 +1,13 @@
-// src/lib/api.js
 import axios from "axios"
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL, // Pastikan ini pointing ke domain server
   headers: {
     "Content-Type": "application/json",
   },
 })
 
-// 🔐 AUTO SERTAKAN TOKEN
+// AUTO SERTAKAN TOKEN
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("admin_token")
@@ -20,7 +19,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// 🚪 AUTO LOGOUT JIKA TOKEN INVALID
+// AUTO LOGOUT JIKA TOKEN INVALID
 api.interceptors.response.use(
   (response) => response,
   (error) => {
