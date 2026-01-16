@@ -26,9 +26,9 @@ const loginMap = [
 /* ================= MENU ================= */
 const menuItems = [
   { label: "Home", href: "/" },
-  { label: "Ibadah", href: "/shaemuslim/" },
-  { label: "Kehidupan", href: "/shaelife/" },
-  { label: "Pekerjaan", href: "/shaeprofesional/" },
+  { label: "Ibadah", href: "/shaemuslim" },
+  { label: "Kehidupan", href: "/shaelife" },
+  { label: "Pekerjaan", href: "/shaeprofesional" },
 ];
 
 export default function Navbar() {
