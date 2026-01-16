@@ -1,5 +1,7 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
+import api from "@/lib/api"
+
 import {
   SidebarProvider,
   Sidebar,
@@ -14,23 +16,54 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar"
 
-import { Home, Image, BookOpen, LogOut } from "lucide-react"
+import { Home, Image, BookOpen } from "lucide-react"
 import { NavUser } from "@/components/nav-user"
-import logo from "/public/img/academy.png" // ganti sesuai path gambar
+import logo from "/public/img/academy.png"
 
-export default function AdminLayout({ user }) {
+export default function AdminLayout() {
   const navigate = useNavigate()
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const handleLogout = () => {
+  /* 🔐 AUTH GUARD */
+  useEffect(() => {
+    const token = localStorage.getItem("admin_token")
+    if (!token) {
+      navigate("/admin/login")
+      return
+    }
+
+    api
+      .get("/api/admin/me")
+      .then((res) => setUser(res.data))
+      .catch(() => {
+        localStorage.removeItem("admin_token")
+        navigate("/admin/login")
+      })
+      .finally(() => setLoading(false))
+  }, [navigate])
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/api/admin/logout")
+    } catch (_) {}
+
     localStorage.removeItem("admin_token")
     navigate("/admin/login")
   }
 
-  // Data sidebar
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    )
+  }
+
   const data = {
     user: {
-      name: user?.name || "Salis Ahmad",
-      email: user?.email || "salis@example.com",
+      name: user.name,
+      email: user.email,
       avatar: "/avatars/shadcn.jpg",
     },
   }
@@ -38,20 +71,13 @@ export default function AdminLayout({ user }) {
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full">
-        {/* Sidebar */}
         <Sidebar className="border-r">
           <div className="flex h-full flex-col">
-            {/* Logo */}
             <div className="flex items-center gap-3 px-6 py-4 border-b">
-              <img
-                src={logo}
-                alt="SHAE Logo"
-                className="h-10 w-full object-contain rounded"
-              />
+              <img src={logo} alt="SHAE Logo" className="h-10 w-full object-contain" />
             </div>
 
-            {/* Navigation */}
-            <SidebarContent className="flex-1 py-5 px-2 ">
+            <SidebarContent className="flex-1 py-5 px-2">
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu className="space-y-2">
@@ -92,22 +118,18 @@ export default function AdminLayout({ user }) {
               </SidebarGroup>
             </SidebarContent>
 
-            {/* User Info */}
             <SidebarFooter>
               <NavUser user={data.user} onLogout={handleLogout} />
             </SidebarFooter>
           </div>
         </Sidebar>
 
-        {/* Main Content */}
         <SidebarInset className="flex-1 flex flex-col overflow-hidden">
-          {/* Header */}
           <header className="flex h-14 items-center gap-4 border-b bg-white px-6">
             <SidebarTrigger className="md:hidden" />
-            <h1 className="text-lg font-semibold text-gray-900">Admin Dashboard</h1>
+            <h1 className="text-lg font-semibold">Admin Dashboard</h1>
           </header>
 
-          {/* Page Content */}
           <main className="flex-1 overflow-auto p-6 bg-gray-50">
             <Outlet />
           </main>
