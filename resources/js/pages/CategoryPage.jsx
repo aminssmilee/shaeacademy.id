@@ -8,6 +8,7 @@ import ClassCard from "@/components/common/class-card"
 import { TOPICS_BY_CATEGORY } from "@/topics"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { SlidersHorizontal } from "lucide-react"
+import useFavicon from "@/hooks/useFavicon"
 
 // ================= CATEGORY MAPPING =================
 // Map kategori front-end ke kategori yang sesuai di API Laravel
@@ -26,6 +27,7 @@ function topicLabel(topicValue, category) {
 }
 
 export default function CategoryPage({ category }) {
+  useFavicon(category)
   const [classes, setClasses] = useState([])
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState("termurah")
