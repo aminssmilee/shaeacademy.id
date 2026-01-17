@@ -20,10 +20,9 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:3000',
-        'http://127.0.0.1:3000',
-        'https://shaeacademy.vercel.app',
-        'https://shaeacademy.id'
+        'https://shaeacademy.id',
+        'https://www.shaeacademy.id',
+        'https://shaeacademy.vercel.app'
     ],
 
     'allowed_origins_patterns' => [],

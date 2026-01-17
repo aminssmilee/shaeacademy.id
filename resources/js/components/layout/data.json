@@ -1,0 +1,56 @@
+{
+  "muslim": [
+    {
+      "id": 1,
+      "title": "Kelas Muslim 1",
+      "category": "Muslim",
+      "price": 100000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    },
+    {
+      "id": 2,
+      "title": "Kelas Muslim 2",
+      "category": "Muslim",
+      "price": 150000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    }
+  ],
+  "life": [
+    {
+      "id": 3,
+      "title": "Kelas Life 1",
+      "category": "Life",
+      "price": 120000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    },
+    {
+      "id": 4,
+      "title": "Kelas Life 2",
+      "category": "Life",
+      "price": 180000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    }
+  ],
+  "profesional": [
+    {
+      "id": 5,
+      "title": "Kelas Profesional 1",
+      "category": "Profesional",
+      "price": 200000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    },
+    {
+      "id": 6,
+      "title": "Kelas Profesional 2",
+      "category": "Profesional",
+      "price": 250000,
+      "poster": "https://via.placeholder.com/300x200",
+      "external_link": "#"
+    }
+  ]
+}

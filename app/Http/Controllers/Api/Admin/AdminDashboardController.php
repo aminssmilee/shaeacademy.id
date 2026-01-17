@@ -69,4 +69,38 @@ class AdminDashboardController extends Controller
             ], 500);
         }
     }
+    // AdminDashboardController.php
+    public function dashboard()
+    {
+        try {
+            // Total kelas
+            $totalClasses = ClassItem::count();
+
+            // Total banner aktif (misal ada kolom status)
+            $activeBanners = Banner::where('status', 'active')->count();
+
+            // Chart data: jumlah kelas & banner per hari selama 30 hari terakhir
+            $chartData = collect();
+            for ($i = 30; $i >= 0; $i--) {
+                $date = now()->subDays($i)->format('Y-m-d');
+                $classes = ClassItem::whereDate('created_at', $date)->count();
+                $banners = Banner::whereDate('created_at', $date)->count();
+                $chartData->push([
+                    'date' => $date,
+                    'classes' => $classes,
+                    'banners' => $banners,
+                ]);
+            }
+
+            return response()->json([
+                'totalClasses' => $totalClasses,
+                'activeBanners' => $activeBanners,
+                'chartData' => $chartData,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Gagal fetch dashboard: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
