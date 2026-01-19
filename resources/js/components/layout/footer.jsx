@@ -15,7 +15,8 @@ const footerMap = [
         muted: "text-yellow-800",
         logo: shaeMuslim,
         title: "Shae Muslim",
-        description: "Platform belajar Islam dari dasar sesuai Al-Qur’an dan Sunnah",
+        description:
+            "Platform non-profit pembelajaran Islam dari dasar sesuai Al-Qur’an dan Sunnah",
         instagram: "https://www.instagram.com/shaemuslim_id/",
         whatsapp: "https://wa.me/6285175325622",
     },
@@ -26,7 +27,8 @@ const footerMap = [
         muted: "text-orange-100",
         logo: shaeLife,
         title: "Shae Life",
-        description: "Platform belajar ilmu kehidupan tiap tahapan sesuai nilai islam",
+        description:
+            "Platform non-profit pembelajaran ilmu kehidupan di setiap tahapan sesuai nilai Islam",
         instagram: "https://www.instagram.com/shaelife_id/",
         whatsapp: "https://wa.me/6285175325622",
     },
@@ -37,11 +39,13 @@ const footerMap = [
         muted: "text-green-100",
         logo: shaeProfessional,
         title: "Shae Professional",
-        description: "Platform belajar skill kerja secara profesional sesuai syariat",
+        description:
+            "Platform non-profit pembelajaran skill kerja secara profesional sesuai syariat",
         instagram: "https://www.instagram.com/shaeprofesional_id/",
         whatsapp: "https://wa.me/6285175325622",
     },
 ];
+
 
 export default function Footer() {
     const pathname = window.location.pathname
@@ -55,10 +59,10 @@ export default function Footer() {
             title: "Shae Academy",
             tagline: "Shalih, Tentram, Penuh Manfaat",
             description:
-                "Platform pengembangan kualitas pemuda muslim secara holistik",
+                "Platform non-profit pengembangan kualitas pemuda muslim secara holistik",
             instagram: "https://www.instagram.com/shaeacademy/",
             whatsapp: "https://wa.me/6285175325622",
-        }
+        };
 
     return (
         <footer
