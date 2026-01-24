@@ -73,8 +73,10 @@ export default function AdminBanners() {
         return "Shae Muslim"
       case "shae-life":
         return "Shae Life"
-      case "shae-professional":
-        return "Shae Professional"
+      case "shae-kreasi":
+        return "Shae Kreasi"
+      case "shae-academy":
+        return "Shae Academy"
       default:
         return cat
     }
@@ -114,9 +116,10 @@ export default function AdminBanners() {
           className="h-9 rounded-md border px-3 text-sm"
         >
           <option value="all">Semua Kategori</option>
+          <option value="shae-academy">Shae Academy</option>
           <option value="shae-muslim">Shae Muslim</option>
           <option value="shae-life">Shae Life</option>
-          <option value="shae-professional">Shae Professional</option>
+          <option value="shae-kreasi">Shae Kreasi</option>
         </select>
       </div>
 

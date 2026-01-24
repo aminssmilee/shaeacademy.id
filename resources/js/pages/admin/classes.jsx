@@ -71,8 +71,8 @@ export default function AdminClasses() {
         return "Shae Muslim"
       case "shae-life":
         return "Shae Life"
-      case "shae-professional":
-        return "Shae Professional"
+      case "shae-kreasi":
+        return "Shae Kreasi"
       default:
         return cat
     }
@@ -144,7 +144,7 @@ export default function AdminClasses() {
           <option value="all">Shae Category</option>
           <option value="shae-muslim">Shae Muslim</option>
           <option value="shae-life">Shae Life</option>
-          <option value="shae-professional">Shae Professional</option>
+          <option value="shae-kreasi">Shae Kreasi</option>
         </select>
 
         <select

@@ -29,7 +29,7 @@ class AdminClassController extends Controller
     {
         $validated = $request->validate([
             'title'         => 'required|string',
-            'category'      => 'required|in:shae-muslim,shae-life,shae-professional',
+            'category'      => 'required|in:shae-muslim,shae-life,shae-kreasi',
             'topic'         => 'required|string',
             'price'         => 'required|integer',
             'external_link' => 'required|url',
@@ -64,7 +64,7 @@ class AdminClassController extends Controller
 
         $validated = $request->validate([
             'title'         => 'required|string',
-            'category'      => 'required|in:shae-muslim,shae-life,shae-professional',
+            'category'      => 'required|in:shae-muslim,shae-life,shae-kreasi',
             'topic'         => 'required|string',
             'price'         => 'required|integer',
             'external_link' => 'required|url',
@@ -123,7 +123,7 @@ class AdminClassController extends Controller
         if (!in_array($category, [
             'shae-muslim',
             'shae-life',
-            'shae-professional',
+            'shae-kreasi',
         ])) {
             return response()->json([
                 'message' => 'Kategori tidak valid'

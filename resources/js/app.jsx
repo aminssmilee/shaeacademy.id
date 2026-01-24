@@ -32,7 +32,7 @@ createRoot(root).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/shaemuslim" element={<CategoryPage category="muslim" />} />
         <Route path="/shaelife" element={<CategoryPage category="life" />} />
-        <Route path="/shaeprofesional" element={<CategoryPage category="profesional" />} />
+        <Route path="/shaekreasi" element={<CategoryPage category="kreasi" />} />
 
         {/* ================= ADMIN AUTH ================= */}
         <Route path="/admin/login" element={<AdminLogin />} />

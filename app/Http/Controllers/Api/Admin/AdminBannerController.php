@@ -11,7 +11,8 @@ class AdminBannerController extends Controller
 {
     public function __construct(
         protected BannerImageService $imageService
-    ) {}
+    ) {
+    }
 
     public function index(Request $request)
     {
@@ -22,12 +23,12 @@ class AdminBannerController extends Controller
             ->orderBy('order')
             ->get()
             ->map(fn($b) => [
-                'id'        => $b->id,
-                'category'  => $b->category,
+                'id' => $b->id,
+                'category' => $b->category,
                 'image' => str_starts_with($b->image, 'http')
                     ? $b->image
                     : asset('storage/' . $b->image),
-                'order'     => $b->order,
+                'order' => $b->order,
                 'is_active' => $b->is_active,
             ]);
 
@@ -37,18 +38,25 @@ class AdminBannerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'category' => 'required|in:shae-muslim,shae-life,shae-professional',
-            'image'    => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
-            'order'    => 'nullable|integer',
+            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-kreasi',
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'order' => 'nullable|integer',
         ]);
+
+        // Validasi urutan unik per kategori
+        if (Banner::where('category', $data['category'])->where('order', $data['order'] ?? 0)->exists()) {
+            return response()->json([
+                'message' => 'Urutan banner ' . ($data['order'] ?? 0) . ' sudah digunakan di kategori ini. Mohon gunakan urutan lain.'
+            ], 422);
+        }
 
         // $path = $this->imageService->storeWebp($data['image']);
         $path = $this->imageService->store($data['image']);
 
         $banner = Banner::create([
-            'category'  => $data['category'],
-            'image'     => $path,
-            'order'     => $data['order'] ?? 0,
+            'category' => $data['category'],
+            'image' => $path,
+            'order' => $data['order'] ?? 0,
             'is_active' => true,
         ]);
 
@@ -60,9 +68,9 @@ class AdminBannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $data = $request->validate([
-            'category'  => 'required|in:shae-muslim,shae-life,shae-professional',
-            'image'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
-            'order'     => 'nullable|integer',
+            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-kreasi',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',
         ]);
 
@@ -102,7 +110,7 @@ class AdminBannerController extends Controller
             ->orderBy('order')
             ->get()
             ->map(fn($b) => [
-                'id'    => $b->id,
+                'id' => $b->id,
                 'image' => str_starts_with($b->image, 'http')
                     ? $b->image
                     : asset('storage/' . $b->image),
@@ -122,10 +130,10 @@ class AdminBannerController extends Controller
 
         return response()->json([
             'data' => [
-                'id'        => $banner->id,
-                'title'     => $banner->title,
-                'category'  => $banner->category,
-                'order'     => $banner->order,
+                'id' => $banner->id,
+                'title' => $banner->title,
+                'category' => $banner->category,
+                'order' => $banner->order,
                 'is_active' => (bool) $banner->is_active,
                 // 'image'     => asset('storage/' . $banner->image),
                 'image' => str_starts_with($banner->image, 'http')

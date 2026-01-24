@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->enum('category', [
                 'shae-muslim',
                 'shae-life',
-                'shae-professional',
+                'shae-kreasi',
             ]);
 
             // harga dalam rupiah (tanpa titik)

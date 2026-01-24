@@ -2,10 +2,10 @@ import { Instagram, MessageCircle } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
-import shaeAcademy from "/public/img/academy.png";
-import shaeMuslim from "/public/img/muslim.png";
-import shaeLife from "/public/img/life.png";
-import shaeProfessional from "/public/img/profesionall.png";
+import shaeAcademy from "/public/img/shaeacademy.webp"
+import shaeMuslim from "/public/img/ShaeMuslim.webp"
+import shaeLife from "/public/img/ShaeLife.webp"
+import shaekreasi from "/public/img/ShaeKreasi.webp"
 
 const footerMap = [
     {
@@ -33,15 +33,15 @@ const footerMap = [
         whatsapp: "https://wa.me/6285175325622",
     },
     {
-        match: "/shaeprofesional",
+        match: "/shaekreasi",
         bgColor: "#667d4e",
         text: "text-green-50",
         muted: "text-green-100",
-        logo: shaeProfessional,
-        title: "Shae Professional",
+        logo: shaekreasi,
+        title: "Shae Kreasi",
         description:
-            "Platform non-profit pembelajaran skill kerja secara profesional sesuai syariat",
-        instagram: "https://www.instagram.com/shaeprofesional_id/",
+            "Platform non-profit pembelajaran inspirasi skill dan usaha secara kreatif sesuai prinsip kebermanfaatan",
+        instagram: "https://www.instagram.com/shaekreasi_id/",
         whatsapp: "https://wa.me/6285175325622",
     },
 ];
@@ -74,12 +74,15 @@ export default function Footer() {
                 <div className="grid gap-12 md:grid-cols-5 items-start">
                     {/* BRAND */}
                     <div className="md:col-span-3 space-y-5">
-                        <div className="w-[220px]">
+                        <div className="w-[220px] h-[64px] flex items-center">
                             <img
                                 src={current.logo}
                                 alt={current.title}
-                                className="w-full h-auto object-contain"
+                                className="h-full w-auto object-contain"
                                 loading="lazy"
+                                width="220"
+                                height="64"
+                                decoding="async"
                             />
                         </div>
 

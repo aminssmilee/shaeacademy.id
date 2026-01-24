@@ -13,7 +13,7 @@ class PublicClassController extends Controller
         if (!in_array($category, [
             'shae-muslim',
             'shae-life',
-            'shae-professional',
+            'shae-kreasi',
         ])) {
             return response()->json(['message' => 'Kategori tidak valid'], 404);
         }

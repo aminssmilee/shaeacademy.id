@@ -53,6 +53,9 @@ export default function BenefitsSection() {
                       alt={item.title}
                       className="w-3/4 h-3/4 object-contain rounded-full"
                       loading="lazy"
+                      decoding="async"
+                      width="48"
+                      height="48"
                     />
                   </div>
 

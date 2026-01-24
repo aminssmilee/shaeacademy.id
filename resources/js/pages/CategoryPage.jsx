@@ -15,7 +15,7 @@ import useFavicon from "@/hooks/useFavicon"
 const apiCategoryMap = {
   muslim: "shae-muslim",
   life: "shae-life",
-  profesional: "shae-professional",
+  kreasi: "shae-kreasi",
 }
 
 // Fungsi untuk mengambil label topic dari TOPICS_BY_CATEGORY

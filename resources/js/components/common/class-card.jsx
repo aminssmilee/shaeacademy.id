@@ -5,8 +5,6 @@ import ImageSkeleton from "./skeleton/ImageSkeleton"
 
 export default function ClassCard({
   title,
-  price,
-  category,
   poster,
   external_link,
 }) {
@@ -37,13 +35,11 @@ export default function ClassCard({
         />
       </div>
 
-      {/* CONTENT */}
-      <div className="p-4 space-y-1">
-        <h3 className="line-clamp-2 text-sm font-semibold">{title}</h3>
-        <p className="text-xs text-muted-foreground">{category}</p>
-        <p className="text-sm font-bold">
-          Rp {price.toLocaleString("id-ID")}
-        </p>
+      {/* TITLE */}
+      <div className="p-4">
+        <h3 className="text-sm font-semibold leading-snug min-h-[4.5rem]">
+          {title}
+        </h3>
       </div>
     </a>
   )

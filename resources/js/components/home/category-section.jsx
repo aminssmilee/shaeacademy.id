@@ -1,8 +1,8 @@
 import React from "react";
 
-import saemuslim from "/public/banner/6.png";
-import saelife from "/public/banner/7.png";
-import saeprofessional from "/public/banner/8.png";
+import saemuslim from "/public/banner/muslim.webp";
+import saelife from "/public/banner/life.webp";
+import saeprofessional from "/public/banner/kreasi.webp";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,9 +30,9 @@ const categories = [
     button: "bg-[#cb8230] hover:bg-[#b8742b]",
   },
   {
-    key: "shaeprofesional",
-    title: "Shae Profesional",
-    description: "Belajar skill kerja secara profesional sesuai syariat",
+    key: "shaekreasi",
+    title: "Shae Kreasi",
+    description: "Belajar inspirasi skill dan usaha secara kreatif sesuai prinsip kebermanfaatan",
     image: saeprofessional,
     cta: "Upgrade Kualitas Pekerjaanmu Sekarang",
     accent: "from-[#667d4e]/25",
@@ -60,11 +60,15 @@ export default function CategorySection() {
               transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               {/* IMAGE */}
-              <div className="relative w-full h-32 sm:h-36 md:h-40 overflow-hidden">
+              <div className="relative w-full h-32 sm:h-36 md:h-40 overflow-hidden bg-gray-100">
                 <img
-                  src={item.image} // langsung path string
+                  src={item.image}
                   alt={item.title}
                   className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="160"
                 />
                 <div
                   className={`absolute inset-0 bg-gradient-to-b ${item.accent} to-transparent`}

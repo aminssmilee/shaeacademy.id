@@ -27,7 +27,7 @@ Route::prefix('admin')->group(function () {
 
         route::get('/dashboard-stats', [AdminDashboardController::class, 'index']);
         route::get('/chart-activity', [AdminDashboardController::class, 'chartActivity']);
-        
+
 
         Route::apiResource('classes', AdminClassController::class)
             ->except(['create', 'edit']);
@@ -48,9 +48,10 @@ Route::prefix('public')->group(function () {
 
     Route::get('/banners/{category}', [PublicBannerController::class, 'byCategory'])
         ->whereIn('category', [
+            'shae-academy',
             'shae-muslim',
             'shae-life',
-            'shae-professional',
+            'shae-kreasi',
         ]);
 
     Route::get('/classes/category/{category}', [PublicClassController::class, 'byCategory']);
