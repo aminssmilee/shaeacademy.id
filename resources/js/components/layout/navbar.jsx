@@ -17,7 +17,7 @@ const logoMap = [
   { match: "/shaemuslim", logo: shaeMuslim, alt: "Shae Muslim" },
   { match: "/shaelife", logo: shaeLife, alt: "Shae Life" },
   { match: "/shaekreasi", logo: shaeKreasi, alt: "Shae Kreasi" },
-  { match: "/shaetalk", logo: "", alt: "Coming Soon" },
+  { match: "/shaetalk", logo: "Coming Soon", alt: "Coming Soon" },
 ]
 
 /* ================= LOGIN MAP ================= */
@@ -78,10 +78,9 @@ export default function Navbar() {
           className="flex items-center justify-center w-[160px] h-[48px]"
         >
           <img
-            src={currentLogo.logo}
+            src={currentLogo.logo || "/img/shaeacademy.webp"}
             alt={currentLogo.alt}
             className="h-full w-auto object-contain"
-            fetchPriority="high"
             width="160"
             height="48"
           />
@@ -111,10 +110,9 @@ export default function Navbar() {
           className="flex items-center justify-center w-[160px] h-[48px]"
         >
           <img
-            src={currentLogo.logo}
+            src={currentLogo.logo || "/img/shaeacademy.webp"}
             alt={currentLogo.alt}
             className="h-full w-auto object-contain"
-            fetchPriority="high"
             width="160"
             height="48"
           />
@@ -172,7 +170,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16 px-4 border-b items-center">
           <div className="flex items-center justify-center w-[160px] h-[48px]">
             <img
-              src={currentLogo.logo}
+              src={currentLogo.logo || "/img/shaeacademy.webp"}
               alt={currentLogo.alt}
               className="h-full w-auto object-contain"
               loading="lazy"

@@ -69,7 +69,6 @@ export default function HeroBanner() {
                   src={item.image}
                   alt={item.title || "Banner"}
                   className="w-full h-full object-cover"
-                  fetchPriority={idx === 0 ? "high" : "auto"}
                 />
               </div>
             ))}

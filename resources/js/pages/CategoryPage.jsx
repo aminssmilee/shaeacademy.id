@@ -6,7 +6,7 @@ import Footer from "@/components/layout/footer"
 import HeroBanner from "@/components/hero-banner"
 import ClassCard from "@/components/common/class-card"
 import { TOPICS_BY_CATEGORY } from "@/topics"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { SlidersHorizontal } from "lucide-react"
 import useFavicon from "@/hooks/useFavicon"
 
@@ -152,6 +152,7 @@ export default function CategoryPage({ category }) {
               </SheetTrigger>
 
               <SheetContent side="bottom" className="rounded-t-2xl p-5 space-y-4">
+                <SheetTitle className="sr-only">Filter Kategori</SheetTitle>
                 <select
                   value={sort}
                   onChange={(e) => {
