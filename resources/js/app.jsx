@@ -6,7 +6,7 @@ import { Toaster } from "sonner" // <-- import Sonner
 
 import HomePage from "./pages/Home"
 import CategoryPage from "./pages/CategoryPage"
-import ComingSoon from "./pages/comingsoon"
+import ComingSoon from "./pages/Comingsoon"
 import AdminLogin from "./pages/admin/login"
 import AdminOTPPage from "./pages/admin/otp"
 import AdminLayout from "./components/layout/AdminLayout"
