@@ -10,19 +10,22 @@ import shaeAcademy from "/public/img/shaeacademy.webp"
 import shaeMuslim from "/public/img/ShaeMuslim.webp"
 import shaeLife from "/public/img/ShaeLife.webp"
 import shaeKreasi from "/public/img/ShaeKreasi.webp"
+import shaeTalk from "/public/img/ShaeKreasi.webp"
 
 /* ================= LOGO MAP ================= */
 const logoMap = [
   { match: "/shaemuslim", logo: shaeMuslim, alt: "Shae Muslim" },
   { match: "/shaelife", logo: shaeLife, alt: "Shae Life" },
   { match: "/shaekreasi", logo: shaeKreasi, alt: "Shae Kreasi" },
+  { match: "/shaetalk", logo: "", alt: "Coming Soon" },
 ]
 
 /* ================= LOGIN MAP ================= */
 const loginMap = [
   { match: "/shaemuslim", url: "https://shaemuslim.myr.id/portal" },
   { match: "/shaelife", url: "https://shaelife.myr.id/portal" },
-  { match: "/shaekreasi", url: "https://shaeprofesional.myr.id/portal" },
+  { match: "/shaekreasi", url: "https://shaekreasi.myr.id/portal" },
+  { match: "/shaetalk", url: "https://shaetalk.myr.id/portal" },
 ]
 
 /* ================= MENU ================= */
@@ -31,6 +34,7 @@ const menuItems = [
   { label: "Ibadah", href: "/shaemuslim" },
   { label: "Kehidupan", href: "/shaelife" },
   { label: "Pekerjaan", href: "/shaekreasi" },
+  { label: "Talk", href: "/shaetalk" },
 ]
 
 export default function Navbar() {

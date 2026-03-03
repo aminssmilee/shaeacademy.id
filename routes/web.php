@@ -19,6 +19,9 @@ Route::get('/shaelife', function () {
 Route::get('/shaekreasi', function () {
     return view('app', ['category' => 'kreasi']);
 });
+Route::get('/shaetalk', function () {
+    return view('app', ['category' => 'talk']);
+});
 
 // Optional: fallback
 Route::get('/{any}', function () {

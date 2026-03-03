@@ -6,6 +6,7 @@ import { Toaster } from "sonner" // <-- import Sonner
 
 import HomePage from "./pages/Home"
 import CategoryPage from "./pages/CategoryPage"
+import ComingSoon from "./pages/comingsoon"
 import AdminLogin from "./pages/admin/login"
 import AdminOTPPage from "./pages/admin/otp"
 import AdminLayout from "./components/layout/AdminLayout"
@@ -33,6 +34,7 @@ createRoot(root).render(
         <Route path="/shaemuslim" element={<CategoryPage category="muslim" />} />
         <Route path="/shaelife" element={<CategoryPage category="life" />} />
         <Route path="/shaekreasi" element={<CategoryPage category="kreasi" />} />
+        <Route path="/shaetalk" element={<ComingSoon />} />
 
         {/* ================= ADMIN AUTH ================= */}
         <Route path="/admin/login" element={<AdminLogin />} />

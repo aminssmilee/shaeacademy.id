@@ -1,10 +1,11 @@
 export const SHAE_KREASI_TOPICS = [
   { label: "All", value: "all" },
-  { label: "Bundling", value: "bundling" },
-  { label: "Soft Skill", value: "softskill" },
+  { label: "Nasihat Islam", value: "nasihat-islam" },
+  { label: "Pengembangan Karir", value: "pengembangan-karir" },
   { label: "Keterampilan", value: "keterampilan" },
-  { label: "Karir", value: "karir" },
   { label: "Bisnis", value: "bisnis" },
-  { label: "Keuangan", value: "keuangan" },
+  { label: "Investasi", value: "investasi" },
+  { label: "Sains Teknologi", value: "sains-teknologi" },
+  { label: "Sosial Humaniora", value: "sosial-humaniora" },
   { label: "Lainnya", value: "lainnya" },
 ]

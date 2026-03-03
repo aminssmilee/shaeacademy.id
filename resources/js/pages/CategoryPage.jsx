@@ -16,6 +16,7 @@ const apiCategoryMap = {
   muslim: "shae-muslim",
   life: "shae-life",
   kreasi: "shae-kreasi",
+  talk: "shae-talk",
 }
 
 // Fungsi untuk mengambil label topic dari TOPICS_BY_CATEGORY

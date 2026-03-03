@@ -38,6 +38,15 @@ const categories = [
     accent: "from-[#667d4e]/25",
     button: "bg-[#667d4e] hover:bg-[#5a6f45]",
   },
+  {
+    key: "shaetalk",
+    title: "Shae Talk",
+    description: "Belajar inspirasi skill dan usaha secara kreatif sesuai prinsip kebermanfaatan",
+    image: saeprofessional,
+    cta: "Upgrade Kualitas Pekerjaanmu Sekarang",
+    accent: "from-[#667d4e]/25",
+    button: "bg-[#667d4e] hover:bg-[#5a6f45]",
+  },
 ];
 
 export default function CategorySection() {
