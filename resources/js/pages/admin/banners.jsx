@@ -73,8 +73,8 @@ export default function AdminBanners() {
         return "Shae Muslim"
       case "shae-life":
         return "Shae Life"
-      case "shae-kreasi":
-        return "Shae Kreasi"
+      case "shae-profesional":
+        return "Shae Profesional"
       case "shae-academy":
         return "Shae Academy"
       default:

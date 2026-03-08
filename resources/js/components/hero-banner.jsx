@@ -10,7 +10,7 @@ export default function HeroBanner({ category = "muslim" }) {
   const categoryMap = {
     muslim: "shae-muslim",
     life: "shae-life",
-    kreasi: "shae-kreasi",
+    profesional: "shae-profesional",
   }
   const apiCategory = categoryMap[category] ?? category
 
