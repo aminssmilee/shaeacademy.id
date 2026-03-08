@@ -51,7 +51,7 @@ Route::prefix('public')->group(function () {
             'shae-academy',
             'shae-muslim',
             'shae-life',
-            'shae-kreasi',
+            'shae-profesional',
         ]);
 
     Route::get('/classes/category/{category}', [PublicClassController::class, 'byCategory']);
