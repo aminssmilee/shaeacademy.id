@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import shaeAcademy from "/public/img/shaeacademy.webp"
 import shaeMuslim from "/public/img/ShaeMuslim.webp"
 import shaeLife from "/public/img/ShaeLife.webp"
-import shaekreasi from "/public/img/ShaeKreasi.webp"
+import shaeProfesional from "/public/img/ShaeProfesional.png"
 
 const footerMap = [
     {
@@ -18,7 +18,7 @@ const footerMap = [
         description:
             "Platform belajar Islam dari dasar sesuai Al-Qur’an dan Sunnah",
         instagram: "https://www.instagram.com/shaemuslim_id/",
-        whatsapp: "https://wa.me/6285175325622",
+        whatsapp: "https://wa.me/6285168603299",
     },
     {
         match: "/shaelife",
@@ -30,19 +30,19 @@ const footerMap = [
         description:
             "Platform belajar ilmu kehidupan di setiap tahapan sesuai nilai Islam",
         instagram: "https://www.instagram.com/shaelife_id/",
-        whatsapp: "https://wa.me/6285175325622",
+        whatsapp: "https://wa.me/6285168603299",
     },
     {
-        match: "/shaekreasi",
+        match: "/shaeprofesional",
         bgColor: "#667d4e",
         text: "text-green-50",
         muted: "text-green-100",
-        logo: shaekreasi,
-        title: "Shae Kreasi",
+        logo: shaeProfesional,
+        title: "Shae Profesional",
         description:
-            "Platform belajar inspirasi skill dan usaha secara kreatif sesuai prinsip kebermanfaatan",
-        instagram: "https://www.instagram.com/shaekreasi_id/",
-        whatsapp: "https://wa.me/6285175325622",
+            "Platform belajar dunia kerja dalam berbagai bidang sesuai prinsip syariah",
+        instagram: "https://www.instagram.com/shaeprofesional_id/",
+        whatsapp: "https://wa.me/6285168603299",
     },
     {
         match: "/shaetalk",
@@ -73,7 +73,7 @@ export default function Footer() {
             description:
                 "Platform pengembangan kualitas pemuda muslim secara holistik",
             instagram: "https://www.instagram.com/shaeacademy/",
-            whatsapp: "https://wa.me/6285175325622",
+            whatsapp: "https://wa.me/6285168603299",
         };
 
     return (

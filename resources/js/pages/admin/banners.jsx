@@ -119,7 +119,7 @@ export default function AdminBanners() {
           <option value="shae-academy">Shae Academy</option>
           <option value="shae-muslim">Shae Muslim</option>
           <option value="shae-life">Shae Life</option>
-          <option value="shae-kreasi">Shae Kreasi</option>
+          <option value="shae-profesional">Shae Profesional</option>
         </select>
       </div>
 

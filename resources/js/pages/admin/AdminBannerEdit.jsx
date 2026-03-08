@@ -145,7 +145,7 @@ export default function AdminBannerEdit() {
                 <SelectItem value="shae-academy">Shae Academy</SelectItem>
                 <SelectItem value="shae-muslim">Shae Muslim</SelectItem>
                 <SelectItem value="shae-life">Shae Life</SelectItem>
-                <SelectItem value="shae-kreasi">Shae Kreasi</SelectItem>
+                <SelectItem value="shae-profesional">Shae Profesional</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -29,7 +29,7 @@ class AdminClassController extends Controller
     {
         $validated = $request->validate([
             'title'         => 'required|string',
-            'category'      => 'required|in:shae-muslim,shae-life,shae-kreasi',
+            'category'      => 'required|in:shae-muslim,shae-life,shae-profesional',
             'topic'         => 'required|string',
             'price'         => 'required|integer',
             'external_link' => 'required|url',
@@ -64,7 +64,7 @@ class AdminClassController extends Controller
 
         $validated = $request->validate([
             'title'         => 'required|string',
-            'category'      => 'required|in:shae-muslim,shae-life,shae-kreasi',
+            'category'      => 'required|in:shae-muslim,shae-life,shae-profesional',
             'topic'         => 'required|string',
             'price'         => 'required|integer',
             'external_link' => 'required|url',

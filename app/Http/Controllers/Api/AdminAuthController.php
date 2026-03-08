@@ -19,16 +19,23 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'           => 'required|email',
-            'password'        => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
             'recaptcha_token' => 'required',
         ]);
 
         // 🔐 Verify reCAPTCHA
-        $verify = Http::asForm()->post(
+        $verifyRequest = Http::asForm();
+
+        // Disable SSL verification for local environment to prevent cURL error 60
+        if (app()->environment('local')) {
+            $verifyRequest = $verifyRequest->withoutVerifying();
+        }
+
+        $verify = $verifyRequest->post(
             'https://www.google.com/recaptcha/api/siteverify',
             [
-                'secret'   => config('services.recaptcha.secret'),
+                'secret' => config('services.recaptcha.secret'),
                 'response' => $request->recaptcha_token,
             ]
         );
@@ -88,7 +95,7 @@ class AdminAuthController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'otp'     => 'required|digits:6',
+            'otp' => 'required|digits:6',
         ]);
 
         $cachedOtp = Cache::get("admin_otp_{$request->user_id}");
@@ -113,12 +120,12 @@ class AdminAuthController extends Controller
 
         return response()->json([
             'message' => 'Login berhasil',
-            'token'   => $token, // FE gunakan untuk Authorization Bearer
-            'user'    => [
-                'id'    => $user->id,
-                'name'  => $user->name,
+            'token' => $token, // FE gunakan untuk Authorization Bearer
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
                 'email' => $user->email,
-                'role'  => $user->role,
+                'role' => $user->role,
             ],
         ]);
     }

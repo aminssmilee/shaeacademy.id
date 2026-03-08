@@ -47,6 +47,10 @@
     "file": "assets/ShaeMuslim-CVdlN8pj.webp",
     "src": "public/img/ShaeMuslim.webp"
   },
+  "public/img/ShaeProfesional.png": {
+    "file": "assets/ShaeProfesional-BglFHBSV.png",
+    "src": "public/img/ShaeProfesional.png"
+  },
   "public/img/academy.png": {
     "file": "assets/academy-B7Ep8dsh.png",
     "src": "public/img/academy.png"
@@ -61,7 +65,7 @@
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-CUVc_2dn.js",
+    "file": "assets/app-C7iXMBHe.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -72,7 +76,7 @@
       "assets/shaeacademy-Bx5G9aCQ.webp",
       "assets/ShaeMuslim-CVdlN8pj.webp",
       "assets/ShaeLife-DeLm-hUI.webp",
-      "assets/ShaeKreasi-BPBdVw0v.webp",
+      "assets/ShaeProfesional-BglFHBSV.png",
       "assets/5-BzsQV3QR.png",
       "assets/b1-DJKggoSW.jpeg",
       "assets/b3-CGFN7iAi.jpeg",

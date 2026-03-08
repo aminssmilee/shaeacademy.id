@@ -6,7 +6,7 @@ import { Toaster } from "sonner" // <-- import Sonner
 
 import HomePage from "./pages/Home"
 import CategoryPage from "./pages/CategoryPage"
-import ComingSoon from "./pages/Comingsoon"
+// import ComingSoon from "./pages/Comingsoon"
 import AdminLogin from "./pages/admin/login"
 import AdminOTPPage from "./pages/admin/otp"
 import AdminLayout from "./components/layout/AdminLayout"
@@ -19,6 +19,7 @@ import AdminBannerCreate from "./pages/admin/AdminBannerCreate"
 import AdminBannerEdit from "./pages/admin/AdminBannerEdit"
 import AdminClassEdit from "./pages/admin/AdminClassEdit"
 import AdminClassCreate from "./pages/admin/AdminClassCreate"
+
 
 const root = document.getElementById("root")
 
@@ -33,8 +34,8 @@ createRoot(root).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/shaemuslim" element={<CategoryPage category="muslim" />} />
         <Route path="/shaelife" element={<CategoryPage category="life" />} />
-        <Route path="/shaekreasi" element={<CategoryPage category="kreasi" />} />
-        <Route path="/shaetalk" element={<ComingSoon />} />
+        <Route path="/shaeprofesional" element={<CategoryPage category="profesional" />} />
+        {/* <Route path="/shaetalk" element={<ComingSoon />} /> */}
 
         {/* ================= ADMIN AUTH ================= */}
         <Route path="/admin/login" element={<AdminLogin />} />

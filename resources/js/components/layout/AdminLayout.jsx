@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { NavLink, Outlet, useNavigate } from "react-router-dom"
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom"
 import api from "@/lib/api"
 
 import {
@@ -22,6 +22,7 @@ import logo from "/public/img/academy.png"
 
 export default function AdminLayout() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -46,7 +47,7 @@ export default function AdminLayout() {
   const handleLogout = async () => {
     try {
       await api.post("/api/admin/logout")
-    } catch (_) {}
+    } catch (_) { }
 
     localStorage.removeItem("admin_token")
     navigate("/admin/login")
@@ -66,6 +67,14 @@ export default function AdminLayout() {
       email: user.email,
       avatar: "/avatars/shadcn.jpg",
     },
+  }
+
+  /* 🏷️ DYNAMIC PAGE TITLE */
+  let pageTitle = "Admin Dashboard"
+  if (location.pathname.includes("/admin/banners")) {
+    pageTitle = "Manajemen Banner"
+  } else if (location.pathname.includes("/admin/classes")) {
+    pageTitle = "Manajemen Kelas"
   }
 
   return (
@@ -126,8 +135,8 @@ export default function AdminLayout() {
 
         <SidebarInset className="flex-1 flex flex-col overflow-hidden">
           <header className="flex h-14 items-center gap-4 border-b bg-white px-6">
-            <SidebarTrigger className="md:hidden" />
-            <h1 className="text-lg font-semibold">Admin Dashboard</h1>
+            <SidebarTrigger className="-ml-2 h-8 w-8 text-gray-600 hover:text-black hover:bg-gray-100 rounded-md p-1" />
+            <h1 className="text-lg font-semibold">{pageTitle}</h1>
           </header>
 
           <main className="flex-1 overflow-auto p-6 bg-gray-50">

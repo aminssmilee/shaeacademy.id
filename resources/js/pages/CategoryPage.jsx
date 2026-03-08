@@ -15,7 +15,7 @@ import useFavicon from "@/hooks/useFavicon"
 const apiCategoryMap = {
   muslim: "shae-muslim",
   life: "shae-life",
-  kreasi: "shae-kreasi",
+  profesional: "shae-profesional",
   talk: "shae-talk",
 }
 
@@ -189,9 +189,25 @@ export default function CategoryPage({ category }) {
 
         {/* LIST KELAS */}
         {loading ? (
-          <p className="text-sm text-gray-500">Memuat kelas...</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="rounded-xl border bg-white p-3 shadow-sm animate-pulse flex flex-col gap-3">
+                <div className="h-40 w-full rounded-md bg-gray-200"></div>
+                <div className="h-4 w-3/4 rounded bg-gray-200"></div>
+                <div className="h-3 w-1/2 rounded bg-gray-200"></div>
+                <div className="h-6 w-1/3 rounded bg-gray-200 mt-2"></div>
+              </div>
+            ))}
+          </div>
         ) : classes.length === 0 ? (
-          <p className="text-sm text-gray-500">Kelas tidak ditemukan</p>
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="text-gray-400 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p className="text-sm text-gray-500 font-medium">Belum ada kelas di kategori ini</p>
+          </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {classes.map((item) => (

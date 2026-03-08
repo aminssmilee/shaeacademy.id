@@ -38,7 +38,7 @@ class AdminBannerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-kreasi',
+            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-profesional',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
             'order' => 'nullable|integer',
         ]);
@@ -68,7 +68,7 @@ class AdminBannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $data = $request->validate([
-            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-kreasi',
+            'category' => 'required|in:shae-academy,shae-muslim,shae-life,shae-profesional',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',

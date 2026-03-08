@@ -10,9 +10,9 @@ export default function useFavicon(category = "") {
       icon: "/favicon/logo sl bunder.png",
       themeColor: "#cb8230", // Orange Shae Life
     },
-    kreasi: {
+    profesional: {
       icon: "/favicon/Logo Mockup SP.png",
-      themeColor: "#667d4e", // Hijau Shae Kreasi
+      themeColor: "#667d4e", // Hijau Shae Profesional
     },
     default: {
       icon: "/favicon/Logo sq shae 2026.png",

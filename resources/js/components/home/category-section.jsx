@@ -30,9 +30,9 @@ const categories = [
     button: "bg-[#cb8230] hover:bg-[#b8742b]",
   },
   {
-    key: "shaekreasi",
-    title: "Shae Kreasi",
-    description: "Belajar inspirasi skill dan usaha secara kreatif sesuai prinsip kebermanfaatan",
+    key: "shaeprofesional",
+    title: "Shae Profesional",
+    description: "Belajar dunia kerja dalam berbagai bidang sesuai prinsip syariah",
     image: saeprofessional,
     cta: "Upgrade Kualitas Pekerjaanmu Sekarang",
     accent: "from-[#667d4e]/25",
