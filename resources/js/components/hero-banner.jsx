@@ -53,7 +53,7 @@ export default function HeroBanner({ category = "muslim" }) {
   if (loading || banners.length === 0) return null
 
   return (
-    <section className="relative bg-white mb-6">
+    <section className="relative bg-white">
       <div className="container mx-auto">
         <div className="relative w-full overflow-hidden rounded-2xl aspect-[3780/1323]">
           <div

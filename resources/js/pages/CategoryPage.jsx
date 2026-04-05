@@ -90,13 +90,13 @@ export default function CategoryPage({ category }) {
 
       <main className="container mx-auto px-2 sm:px-6 pb-10 space-y-6">
         {/* HEADER */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-4">
           {/* <h2 className="text-xl font-bold capitalize">
             Kategori: {topicLabel(topic, apiCategory)}
           </h2> */}
 
           {/* Desktop: search + sort + topic */}
-          <div className="hidden sm:flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
+          <div className="hidden sm:flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full ">
             {/* Kiri: Search */}
             <input
               type="text"
