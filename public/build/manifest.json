@@ -60,17 +60,17 @@
     "src": "public/img/shaeacademy.webp"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BKvngocv.css",
+    "file": "assets/app-BeUTZ2Zl.css",
     "src": "resources/js/app.jsx",
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DgD6boM5.js",
+    "file": "assets/app-Bd4YOniz.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "css": [
-      "assets/app-BKvngocv.css"
+      "assets/app-BeUTZ2Zl.css"
     ],
     "assets": [
       "assets/shaeacademy-Bx5G9aCQ.webp",
